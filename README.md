@@ -1,111 +1,71 @@
-# Endpoint Management System
+<<<<<<< HEAD
+This project focuses on Developing an automated patch management solution mainly focusing for Windows-based IT environments for small and medium enterprises (SMEs). This system offers complete patch management features-from automated detection of available updates, administrator approval workflows, and secured deployment through VLAN isolation-to real-time update of patch status across all endpoints and generate detailed compliance reports. This application support to Windows Operating systems including Windows 10/11 with common utility applications. Security is ensured through role-based access control and secure communication protocols. This system designed with SME requirements in considering, the system offers an efficient, cost-effective approach to maintaining system updates while minimizing manual human indolent and maintaining high security environment. 
 
-A web application for collecting and displaying workstation details in a local network.
+Backend Configuration Guide
+Initial Setup Requirements
+The backend configuration of the Automated Patch Management System must be configured by an IT professional who familiar with familiar with network administration and basic programming. before deployment, host server must be checked that it meets system requirements:
 
-## Features
+•	Windows Server 2016/2019 with IIS enabled.
+•	Python 3.13 and MySQL installed.
+•	Firewall rules adjusted to allow communication between the server and endpoints.
 
-- Collect endpoint information using Python scripts
-- Store data in MySQL database
-- RESTful API for data access
-- Angular frontend for data visualization
-- Dashboard with statistics and charts
-- Detailed endpoint information view
-- Software inventory management
+Configuration via .env File
+Important parameters must be defined in the .env file according to the business needs before launching the application:
 
-## Project Structure
+1.	Network Settings
 
-- `backend/`: Flask API server
-- `src/`: Angular frontend application
+This application should pecify the IP address range and subnet (e.g., 192.168.1.0/24) to identify device domain to authorized networks.
 
-## Setup Instructions
+2.	Admin Credentials
 
-### Prerequisites
+Provide domain or local admin account credentials (username/password) with permissions to run scripts on endpoints via WMI/WinRM.
 
-- Python 3.8+
-- Node.js 14+
-- MySQL Server
+3.	Email Notifications
 
-### Backend Setup
+Configure SMTP settings (server, port, credentials) for sending captured pending OS updates and Utility applications updates for the system administrator. 
 
-1. Create a MySQL database:
+4.	Task Scheduling
 
-```sql
-CREATE DATABASE endpoint_management;
-```
+Define automated task timings in cron job format:
 
-2. Install Python dependencies:
+•	Device scan time: Frequency of network scan and device identification (e.g., daily at 12 AM).
+•	Endpoint data collection: Interval for gathering software/hardware details from endpoints (e.g., daily at 2 AM).
+•	Update checks: When to query for new patches (e.g., daily at 3 AM).
+•	Updates Install: Pending approved updates Download and installation (e.g., daily at 4 AM).
 
-```bash
-cd backend
-pip install -r requirements.txt
-```
 
-3. Configure the database connection in `backend/app.py`:
+Endpoint Device Configuration
+For an Effective Automated Patch Management System, there have some configuration settings need to configure endpoints on a specific network. That settings would enable communication with the server backend while supporting patch management workflow processes. This has to be done by an IT professional with administrator access on the endpoints using CLI.
 
-```python
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/endpoint_management'
-```
+Prerequisites
+•	Endpoints running Windows 10/11.
+•	Administrative privileges on each endpoint.
+•	Network connectivity to the backend server.
 
-4. Run the Flask server:
+Configuration Steps
 
-```bash
-python app.py
-```
+1.	Enable and Verify WMI (Windows Management Instrumentation)
+WMI is required for collect hardware and software details from endpoints.
 
-### Frontend Setup
+Get-Service Winmgmt
 
-1. Install Angular dependencies:
+2.	Configure WinRM (Windows Remote Management)
+WinRM facilitates remote management and patch deployment trough execute script over remote sessions.
 
-```bash
-npm install
-```
+winrm quickconfig
 
-2. Run the Angular development server:
+3.	Enable Windows Update Module
+Ensure endpoints can receive and install updates via the Windows Update service.
 
-```bash
-npm start
-```
+Install-Module -Name PSWindowsUpdate -Force -AllowClobber
+Import-Module PSWindowsUpdate
+sc start wuauserv
 
-## Deployment
+4.	Install and Configure Chocolatey Package Manager
+Chocolatey extends patch management by enabling additional software installations efficiently.
 
-### Local Deployment
+powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
 
-1. Build the Angular application:
-
-```bash
-npm run build
-```
-
-2. Run the Flask application:
-
-```bash
-python backend/app.py
-```
-
-3. Access the application at http://localhost:5000
-
-## API Endpoints
-
-- `GET /api/endpoints`: Get all endpoints
-- `GET /api/endpoints/{id}`: Get endpoint by ID
-- `GET /api/endpoints/{ip_address}/latest`: Get latest endpoint data by IP
-- `GET /api/endpoints/{id}/software`: Get software for an endpoint
-- `POST /api/endpoints`: Add new endpoint data
-- `GET /api/stats`: Get system statistics
-- `GET /api/health`: Health check endpoint
-
-## Data Collection
-
-Use the provided Python scripts to collect endpoint data:
-
-1. Run the collection script on a Windows machine:
-
-```bash
-python endpoint_collection.py --ip 192.168.1.100,192.168.1.101 --user domain\\username
-```
-
-2. Push the collected data to the API:
-
-```bash
-python data_pusher.py --basic endpoint_details.csv --software endpoint_details_software.csv
-```
+=======
+Remote README content from GitHub
+>>>>>>> origin/main
