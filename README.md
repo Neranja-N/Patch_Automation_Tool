@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 This project focuses on Developing an automated patch management solution mainly focusing for Windows-based IT environments for small and medium enterprises (SMEs). This system offers complete patch management features-from automated detection of available updates, administrator approval workflows, and secured deployment through VLAN isolation-to real-time update of patch status across all endpoints and generate detailed compliance reports. This application support to Windows Operating systems including Windows 10/11 with common utility applications. Security is ensured through role-based access control and secure communication protocols. This system designed with SME requirements in considering, the system offers an efficient, cost-effective approach to maintaining system updates while minimizing manual human indolent and maintaining high security environment. 
 
 Backend Configuration Guide
