@@ -1,0 +1,24 @@
+<div class="updates-container">
+    <h2>Pending Software Updates</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Software Name</th>
+          <th>Current Version</th>
+          <th>Avalable Version</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let update of pendingUpdates">
+          <td>{{ update.software_name }}</td>
+          <td>{{ update.current_version }}</td>
+          <td>{{ update.available_version }}</td>
+          <td>
+            <button (click)="approveUpdate(update.software_name, update.current_version)">Approve</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

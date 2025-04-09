@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Endpoint Management Dashboard</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item routerLink="" routerLinkActive="active">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" fixedTopGap="64">
+    <mat-nav-list>
+      <a mat-list-item (click)="navigateTo('overview')" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>&nbsp;
+        <span>Dashboard</span>
+      </a>
+     <!-- <a mat-list-item   routerLink="/dashboard/endpoints" routerLinkActive="active">
+        <mat-icon>devices</mat-icon>&nbsp;
+        <span>Endpoints</span>
+      </a> -->
+      <a mat-list-item   routerLink="/dashboard/softinstall" routerLinkActive="active">
+        <mat-icon>devices</mat-icon>&nbsp;
+        <span>Installed Software</span>
+      </a>
+      <a mat-list-item  routerLink="/dashboard/pendinupdates" routerLinkActive="active">
+        <mat-icon>system_update</mat-icon>&nbsp;
+        <span>Pending Updates OS</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/pendinupdatesSof" routerLinkActive="active">
+        <mat-icon>apps</mat-icon>&nbsp;
+        <span>Pending Updates Applications</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/donedatesos" routerLinkActive="active">
+        <mat-icon>check_circle</mat-icon>&nbsp;
+        <span>Completed OS Updates</span>
+      </a>
+      <a mat-list-item routerLink="/dashboard/doneupdatesSof" routerLinkActive="active">
+        <mat-icon>check_circle</mat-icon>&nbsp;
+        <span>Completed App Updates</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>

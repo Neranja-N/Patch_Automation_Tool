@@ -1,0 +1,45 @@
+<div class="login-container">
+  <!-- Animated Network Background -->
+  <div class="network-background">
+    <div class="node" *ngFor="let node of nodes"></div>
+    <svg class="connections">
+      <line *ngFor="let line of lines" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2" [attr.y2]="line.y2" />
+    </svg>
+  </div>
+
+  <!-- Login Form -->
+  <div class="login-box">
+    <h1>Patch Automation Tool</h1>
+    <p class="subtitle">Secure Login</p>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          [(ngModel)]="username" 
+          name="username" 
+          placeholder="Enter your username" 
+          required 
+        />
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          placeholder="Enter your password" 
+          required 
+        />
+      </div>
+      
+      <button type="submit" class="login-btn">Login</button>
+      
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+  </div>
+</div>

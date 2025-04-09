@@ -1,0 +1,181 @@
+<div class="stats-container">
+  <div class="stats-header">
+    <h1>System Statistics</h1>
+    <button mat-raised-button color="primary" (click)="refreshData()">
+      <mat-icon>refresh</mat-icon> Refresh
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading statistics...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>Error loading statistics. Please try again.</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="stats-content">
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <mat-card class="summary-card">
+        <mat-card-content>
+          <div class="summary-value">{{ stats.total_endpoints || 0 }}</div>
+          <div class="summary-label">Total Endpoints</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card">
+        <mat-card-content>
+          <div class="summary-value">{{ stats.total_software || 0 }}</div>
+          <div class="summary-label">Software Entries</div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="summary-card">
+        <mat-card-content>
+          <div class="summary-value">{{ stats.avg_ram_gb | number:'1.1-2' }} GB</div>
+          <div class="summary-label">Average RAM</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-container">
+      <!-- OS Distribution Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Operating System Distribution</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="osChartData"
+              [type]="'pie'"
+              [options]="{ responsive: true, maintainAspectRatio: false }">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Manufacturer Distribution Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Manufacturer Distribution</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="manufacturerChartData"
+              [type]="'doughnut'"
+              [options]="{ responsive: true, maintainAspectRatio: false }">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Top Software Vendors Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Top Software Vendors</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="vendorChartData"
+              [type]="'bar'"
+              [options]="{ 
+                responsive: true, 
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Distribution Tables -->
+    <div class="tables-container">
+      <!-- OS Distribution Table -->
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>Operating System Distribution</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="stats.os_distribution || []" class="distribution-table">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Operating System</th>
+              <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+
+            <!-- Count Column -->
+            <ng-container matColumnDef="count">
+              <th mat-header-cell *matHeaderCellDef>Count</th>
+              <td mat-cell *matCellDef="let item">{{ item.count }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['name', 'count']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name', 'count'];"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Manufacturer Distribution Table -->
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>Manufacturer Distribution</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="stats.manufacturer_distribution || []" class="distribution-table">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Manufacturer</th>
+              <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+
+            <!-- Count Column -->
+            <ng-container matColumnDef="count">
+              <th mat-header-cell *matHeaderCellDef>Count</th>
+              <td mat-cell *matCellDef="let item">{{ item.count }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['name', 'count']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name', 'count'];"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Top Vendors Table -->
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>Top Software Vendors</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="stats.top_vendors || []" class="distribution-table">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Vendor</th>
+              <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+            </ng-container>
+
+            <!-- Count Column -->
+            <ng-container matColumnDef="count">
+              <th mat-header-cell *matHeaderCellDef>Count</th>
+              <td mat-cell *matCellDef="let item">{{ item.count }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['name', 'count']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name', 'count'];"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

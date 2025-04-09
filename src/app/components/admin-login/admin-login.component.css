@@ -1,0 +1,155 @@
+/* Container */
+.login-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a192f; /* Dark blue-gray */
+    overflow: hidden;
+  }
+  
+  /* Network Background */
+  .network-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .network-background .node {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #64ffda; /* Light teal */
+    border-radius: 50%;
+    animation: pulse 3s infinite ease-in-out;
+  }
+  
+  /* Manually position some nodes (CSS can't loop like SCSS) */
+  .network-background .node:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+  .network-background .node:nth-child(2) { left: 30%; top: 40%; animation-delay: 0.2s; }
+  .network-background .node:nth-child(3) { left: 50%; top: 60%; animation-delay: 0.4s; }
+  .network-background .node:nth-child(4) { left: 70%; top: 80%; animation-delay: 0.6s; }
+  .network-background .node:nth-child(5) { left: 20%; top: 50%; animation-delay: 0.8s; }
+  .network-background .node:nth-child(6) { left: 40%; top: 10%; animation-delay: 1s; }
+  .network-background .node:nth-child(7) { left: 60%; top: 30%; animation-delay: 1.2s; }
+  .network-background .node:nth-child(8) { left: 80%; top: 70%; animation-delay: 1.4s; }
+  .network-background .node:nth-child(9) { left: 15%; top: 85%; animation-delay: 1.6s; }
+  .network-background .node:nth-child(10) { left: 90%; top: 25%; animation-delay: 1.8s; }
+  /* Add more as needed up to 20 */
+  
+  .network-background .connections {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .network-background .connections line {
+    stroke: rgba(100, 255, 218, 0.3); /* Light teal with opacity */
+    stroke-width: 1;
+    animation: fade 4s infinite ease-in-out;
+    stroke-linecap: round;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade {
+    0%, 100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  /* Login Box */
+  .login-box {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+  }
+  
+  .login-box h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #00b4d8; /* Cyan */
+  }
+  
+  .login-box .subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  
+  .login-box .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .login-box .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .login-box .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .login-box .input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .login-box .input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .login-box .login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #00b4d8; /* Cyan */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .login-box .login-btn:hover {
+    background: #0093b3; /* Darker cyan */
+  }
+  
+  .login-box .error {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }

@@ -1,0 +1,52 @@
+.updates-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #00b4d8;
+  text-align: center;
+}
+
+.updates-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgb(7, 3, 3);
+}
+
+.updates-table th,
+.updates-table td {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.updates-table th {
+  background: #6494dd;
+}
+
+.approve-btn {
+  padding: 8px 16px;
+  background: #00b4d8;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.approve-btn:hover:not(:disabled) {
+  background: #0093b3;
+}
+
+.approve-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+p {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}

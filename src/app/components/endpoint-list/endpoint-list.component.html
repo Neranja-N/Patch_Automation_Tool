@@ -1,0 +1,53 @@
+<div class="collection-form">
+  <h2>Collect Endpoint Data</h2>
+  <form [formGroup]="collectionForm" (ngSubmit)="collectData()">
+    <div class="form-group">
+      <label for="ipAddresses">IP Addresses (comma separated)</label>
+      <input type="text" id="ipAddresses" formControlName="ipAddresses" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" required>
+    </div>
+    
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Collecting...' : 'Start Collection' }}
+    </button>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  </form>
+</div>
+
+<div class="endpoint-list">
+  <h2>Collected Endpoints</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>Computer Name</th>
+        <th>OS</th>
+        <th>CPU</th>
+        <th>RAM (GB)</th>
+        <th>Last Collection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let endpoint of endpoints">
+        <td>{{ endpoint.ip_address }}</td>
+        <td>{{ endpoint.computer_name }}</td>
+        <td>{{ endpoint.os_name }} {{ endpoint.os_version }}</td>
+        <td>{{ endpoint.cpu }}</td>
+        <td>{{ endpoint.ram_gb }}</td>
+        <td>{{ endpoint.collection_time | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

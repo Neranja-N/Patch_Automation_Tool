@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="app-title">Endpoint Management System</span>
+  <div class="spacer"></div>
+  <button mat-button (click)="navigateTo('/dashboard')">
+    <mat-icon>dashboard</mat-icon>
+    Dashboard
+  </button>
+  <button mat-button (click)="navigateTo('/endpoints')">
+    <mat-icon>computer</mat-icon>
+    Endpoints
+  </button>
+  <button mat-button (click)="navigateTo('/stats')">
+    <mat-icon>bar_chart</mat-icon>
+    Statistics
+  </button>
+</mat-toolbar>

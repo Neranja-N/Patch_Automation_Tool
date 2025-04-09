@@ -1,0 +1,137 @@
+
+    <div class="header-left">
+      <button mat-icon-button (click)="goBack()" matTooltip="Back to Endpoints">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>Endpoint Details</h1>
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="accent" (click)="viewSoftware()">
+        <mat-icon>apps</mat-icon> View Software
+      </button>
+      <button mat-raised-button color="primary" (click)="refreshData()">
+        <mat-icon>refresh</mat-icon> Refresh
+      </button>
+    
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading endpoint details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>Error loading endpoint details. Please try again.</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="endpoint-detail-content">
+    <mat-card class="detail-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ endpoint.computer_name || 'Unknown Computer' }}
+          <span class="ip-address">({{ endpoint.ip_address }})</span>
+        </mat-card-title>
+        <mat-card-subtitle>
+          Last collected: {{ endpoint.collection_time | date:'medium' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <!-- System Information Tab -->
+          <mat-tab label="System Information">
+            <div class="tab-content">
+              <div class="detail-section">
+                <h3>Hardware</h3>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <div class="detail-label">Manufacturer</div>
+                    <div class="detail-value">{{ endpoint.manufacturer || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Model</div>
+                    <div class="detail-value">{{ endpoint.model || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Serial Number</div>
+                    <div class="detail-value">{{ endpoint.serial_number || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">CPU</div>
+                    <div class="detail-value">{{ endpoint.cpu || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">RAM</div>
+                    <div class="detail-value">{{ endpoint.ram_gb || 0 }} GB</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Domain</div>
+                    <div class="detail-value">{{ endpoint.domain || 'Unknown' }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <mat-divider></mat-divider>
+
+              <div class="detail-section">
+                <h3>Operating System</h3>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <div class="detail-label">OS Name</div>
+                    <div class="detail-value">{{ endpoint.os_name || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">OS Version</div>
+                    <div class="detail-value">{{ endpoint.os_version || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">OS Build</div>
+                    <div class="detail-value">{{ endpoint.os_build || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Architecture</div>
+                    <div class="detail-value">{{ endpoint.os_architecture || 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Install Date</div>
+                    <div class="detail-value">{{ endpoint.install_date ? (endpoint.install_date | date:'medium') : 'Unknown' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Last Boot</div>
+                    <div class="detail-value">{{ endpoint.last_boot ? (endpoint.last_boot | date:'medium') : 'Unknown' }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+
+          <!-- Collection Information Tab -->
+          <mat-tab label="Collection Information">
+            <div class="tab-content">
+              <div class="detail-section">
+                <h3>Collection Details</h3>
+                <div class="detail-grid">
+                  <div class="detail-item">
+                    <div class="detail-label">Collection Time</div>
+                    <div class="detail-value">{{ endpoint.collection_time | date:'medium' }}</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Collection Status</div>
+                    <div class="detail-value">
+                      <span [ngClass]="{'status-success': endpoint.collection_status === 'Success', 'status-failed': endpoint.collection_status !== 'Success'}">
+                        {{ endpoint.collection_status }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-label">Record Created</div>
+                    <div class="detail-value">{{ endpoint.created_at | date:'medium' }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

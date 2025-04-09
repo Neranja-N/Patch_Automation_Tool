@@ -1,0 +1,25 @@
+<div class="updates-container">
+  <h2>Available OS Updates</h2>
+  <table class="updates-table">
+    <thead>
+      <tr>
+        <th>OS Name</th>
+        <th>Available Updates</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let update of osUpdates">
+        <td>{{ update.os_name }}</td>
+        <td>{{ update.available_updates || 'None' }}</td>
+        <td>
+          <button class="approve-btn" 
+              (click)="approveUpdate(update.kb_code)"
+              [disabled]="update.approved">
+        {{ update.approved ? 'Approved' : 'Approve' }}
+      </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="osUpdates.length === 0">No*

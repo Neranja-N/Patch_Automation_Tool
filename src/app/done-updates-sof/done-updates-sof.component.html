@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Completed Software Updates</h2>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+    <button class="export-btn" (click)="exportToExcel()">Report Download</button>
+    <table class="table table-striped" *ngIf="updates.length > 0; else noUpdates">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+          <th>Software Name</th>
+          <th>Current Version</th>
+          <th>Available Version</th>
+          <th>Check Time</th>
+          <th>Approved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let update of updates">
+          <td>{{ update.ip_address }}</td>
+          <td>{{ update.software_name }}</td>
+          <td>{{ update.current_version }}</td>
+          <td>{{ update.available_version }}</td>
+          <td>{{ update.check_time }}</td>
+          <td>{{ update.approved ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noUpdates>
+      <p>No completed software updates found.</p>
+    </ng-template>
+  </div>

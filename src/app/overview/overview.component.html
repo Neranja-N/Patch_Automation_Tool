@@ -1,0 +1,61 @@
+<div class="dashboard-container">
+    <!-- Stats Section -->
+    <div class="stats-container">
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.NetworkScanResults_count || 0 }}</div>
+          <div class="stat-label">Network Scan Results</div>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-value">{{ stats.PendingUpdates_count || 0 }}</div>
+          <div class="stat-label">Pending Updates</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Devices Section -->
+    <mat-card class="devices-card">
+      <mat-card-header>
+        <mat-card-title>Devices</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="devices" class="device-table">
+          <ng-container matColumnDef="ip_address">
+            <th mat-header-cell *matHeaderCellDef>IP Address</th>
+            <td mat-cell *matCellDef="let device">{{ device.IP_Address }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef>Model</th>
+            <td mat-cell *matCellDef="let device">{{ device.Model || 'N/A' }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="os_name">
+            <th mat-header-cell *matHeaderCellDef>OS Name</th>
+            <td mat-cell *matCellDef="let device">{{ device.OS_Name || 'N/A' }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="processor">
+            <th mat-header-cell *matHeaderCellDef>Processor</th>
+            <td mat-cell *matCellDef="let device">{{ device.Processor || 'N/A' }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="ram_size">
+            <th mat-header-cell *matHeaderCellDef>RAM Size</th>
+            <td mat-cell *matCellDef="let device">{{ device.RAM_Size || 'N/A' }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="collection_time">
+            <th mat-header-cell *matHeaderCellDef>Collection Time</th>
+            <td mat-cell *matCellDef="let device">{{ device.Collection_Time | date:'medium' }}</td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>

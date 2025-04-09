@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>Completed OS Updates</h2>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+  <button class="export-btn" (click)="exportToExcel()">Report Download</button>
+  <table class="table table-striped" *ngIf="updates.length > 0; else noUpdates">
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>KB Code</th>
+        <th>Title</th>
+        <th>Size (MB)</th>
+        <th>Reboot Required</th>
+        <th>Approved</th>
+        <th>Check Time</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let update of updates">
+        <td>{{ update.ip_address }}</td>
+        <td>{{ update.kb_code }}</td>
+        <td>{{ update.title }}</td>
+        <td>{{ update.size_mb }}</td>
+        <td>{{ update.reboot_required ? 'Yes' : 'No' }}</td>
+        <td>{{ update.approved ? 'Yes' : 'No' }}</td>
+        <td>{{ update.check_time }}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noUpdates>
+    <p>No completed OS updates found.</p>
+  </ng-template>
+</div>
